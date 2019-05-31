@@ -1,8 +1,7 @@
 import feedparser
 # used to parse xml data
-from flask import Flask
-
-
+from flask import Flask,render_template
+#to render templates render_template
 app = Flask(__name__)
 #instance of Flask obj using module name as parameter
 
@@ -13,25 +12,14 @@ RSS_FEED = {
             }
 
 
-
+@app.route('/')
 @app.route('/<publication>')
-def quint(publication):
-    return get_news(publication)
-
-
-def get_news(publication):
+def get_news(publication="thewire"):
     feed = feedparser.parse(RSS_FEED[publication])
-    first_article = feed['entries'][0]
-    return """
-                <html>
-                    <body>
-                        <h1> Headlines </h1>
-                        <b>{0}</b><br>
-                        <i>{1}</i><br>
-                        <p>{2}</p> <br/>
-                    </body>
-                </html>
-                """.format(first_article.get("title"),first_article.get("published"),first_article.get("summary"))
+    # first_article = feed['entries'][0]
+    return render_template("home.html",
+                            articles = feed['entries']
+                            )
 
 
 if __name__ == '__main__':

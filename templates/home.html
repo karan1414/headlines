@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Headlines</title>
+  </head>
+  <body>
+    <h1>Headlines</h1>
+    {% for article in articles %}
+    <b><a href="{{article.link}}">Title : {{article.title}}</a></b><br>
+    <i>Published: {{article.published}}</i><br>
+    <p>Summary: {{article.summary}}</p>
+    {% endfor %}
+  </body>
+</html>
